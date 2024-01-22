@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', 'App\Http\Controllers\Api\LoginController@login');
-Route::post('createUser', 'App\Http\Controllers\Api\LoginController@createUser');
+Route::post('createUser', 'App\Http\Controllers\Api\LoginController@createUser')->middleware('auth:sanctum');
