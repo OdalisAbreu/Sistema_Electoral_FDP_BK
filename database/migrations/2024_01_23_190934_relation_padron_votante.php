@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('votantes', function (Blueprint $table) {
-            $table->foreign('municipio_id')->references('id')->on('municipios');
-            $table->foreign('distrito_id')->references('id')->on('distritos');
+            $table->foreign('padron_id')->references('id')->on('padron');
         });
     }
 

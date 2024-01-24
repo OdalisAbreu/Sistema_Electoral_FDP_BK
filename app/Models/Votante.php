@@ -7,16 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Votante extends Model
 {
-    //crear relacion de uno a muchos con distritos
-    public function distrito()
+    //realcion uno a muchos con la tabla Padron
+    public function padron()
     {
-        return $this->belongsTo(Distrito::class);
-    }
-
-    //crear relacion de uno a muchos con municipios
-    public function municipio()
-    {
-        return $this->belongsTo(Municipio::class);
+        return $this->belongsTo(Padron::class);
     }
     use HasFactory;
 }

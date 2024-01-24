@@ -17,14 +17,8 @@ class VotanteFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
-            'lastname' => $this->faker->lastName(),
-            'card_id' => $this->faker->unique()->numerify('###########'),
-            'municipio_id' => $this->faker->numberBetween(1, 2),
-            'distrito_id' => $this->faker->numberBetween(1, 6),
-            'mesa' => $this->faker->numberBetween(1000, 2000),
-            'indice' => $this->faker->numberBetween(100, 600),
-            'user_id' => $this->faker->numberBetween(1, 2)
+            'padron_id' => $this->faker->unique()->numberBetween(1, 50),
+            'user_id' => $this->faker->numberBetween(2, 3)
         ];
     }
 }

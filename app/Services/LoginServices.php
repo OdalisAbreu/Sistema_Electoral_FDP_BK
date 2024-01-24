@@ -11,7 +11,7 @@ class LoginServices
     public function login(Request $request)
     {
         $this->validateLogin($request);
-        if (Auth::attempt($request->only('name', 'password'))) {
+        if (Auth::attempt($request->only('username', 'password'))) {
             return response()->json([
                 'toke' => $request->user()->createToken('token')->plainTextToken,
                 'role' => $request->user()->role_id,
@@ -27,7 +27,7 @@ class LoginServices
     public function validateLogin(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
+            'username' => 'required|string',
             'password' => 'required|string',
             'remember_me' => 'boolean'
         ]);
@@ -36,8 +36,12 @@ class LoginServices
     public function createUser(array $data)
     {
         $user = new User();
-        $user->name = $data['name'];
+        $user->name = $data['username'];
         $user->role_id = $data['role_id'];
+        $user->name = $data['name'] ?? '';
+        $user->last_name = $data['last_name'] ?? '';
+        $user->municipio = $data['municipio'] ?? '';
+        $user->distrito = $data['distrito'] ?? '';
         $user->password = bcrypt($data['password']);
         $user->save();
         return $user;

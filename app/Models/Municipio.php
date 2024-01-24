@@ -12,10 +12,5 @@ class Municipio extends Model
     {
         return $this->hasMany(Distrito::class);
     }
-    //crear realacion con votantes de uno a muchos
-    public function votantes()
-    {
-        return $this->hasMany(Votante::class);
-    }
     use HasFactory;
 }

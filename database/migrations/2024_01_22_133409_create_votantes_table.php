@@ -13,14 +13,8 @@ return new class extends Migration
     {
         Schema::create('votantes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('lastname');
-            $table->string('card_id')->unique();
-            $table->integer('mesa');
-            $table->string('indice');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('municipio_id');
-            $table->unsignedBigInteger('distrito_id');
+            $table->unsignedBigInteger('padron_id')->uniqid();
+            $table->unsignedBigInteger('user_id')->default(1);
             $table->timestamps();
 
 
