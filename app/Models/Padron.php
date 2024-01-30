@@ -8,6 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Padron extends Model
 {
     protected $table = 'padron';
+    protected $fillable = [
+        'name',
+        'lastname',
+        'card_id',
+        'mesa',
+        'indice',
+        'concurrencia',
+        'fp',
+        'phone',
+        'municipio_id',
+        'distrito_id',
+    ];
     //crear relacion de uno a muchos con distritos
     public function distrito()
     {

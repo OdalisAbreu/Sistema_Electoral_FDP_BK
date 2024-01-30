@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('indice');
             $table->string('concurrencia')->nullable();
             $table->string('fp')->nullable();
-            $table->string('celular')->nullable();
+            $table->string('phone')->nullable();
             $table->unsignedBigInteger('municipio_id');
             $table->unsignedBigInteger('distrito_id');
             $table->string('image')->nullable();

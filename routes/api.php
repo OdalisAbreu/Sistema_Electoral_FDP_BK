@@ -11,3 +11,4 @@ Route::get('getTotalVotantes', 'App\Http\Controllers\API\V1\DashboardController@
 Route::get('getVotantes/{qty}', 'App\Http\Controllers\API\V1\DashboardController@votantes')->middleware('auth:sanctum');
 Route::get('getCoordinadores/{qty}', 'App\Http\Controllers\API\V1\DashboardController@getCoordinadores')->middleware('auth:sanctum');
 Route::get('getTotalCoordinadores', 'App\Http\Controllers\API\V1\DashboardController@getTotalCoordinadores')->middleware('auth:sanctum');
+Route::resource('padron', 'App\Http\Controllers\Api\V1\PadronController')->middleware('auth:sanctum');
