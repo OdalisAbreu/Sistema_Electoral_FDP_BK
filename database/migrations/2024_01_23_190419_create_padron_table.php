@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('padron', function (Blueprint $table) {
             $table->id();
+            $table->string('card_id')->unique();
             $table->string('name');
             $table->string('lastname');
-            $table->string('card_id')->unique();
-            $table->integer('mesa');
-            $table->string('indice');
+            $table->string('phone')->nullable();
             $table->string('concurrencia')->nullable();
             $table->string('fp')->nullable();
-            $table->string('phone')->nullable();
             $table->unsignedBigInteger('municipio_id');
             $table->unsignedBigInteger('distrito_id');
+            $table->string('mesa');
+            $table->string('indice')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
 

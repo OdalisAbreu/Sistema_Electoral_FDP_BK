@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Padron;
+use App\Models\Votante;
 use Illuminate\Http\Request;
 
 class PadronController extends Controller
@@ -13,9 +14,11 @@ class PadronController extends Controller
      */
     public function index()
     {
-        //devolver padron apginados
-        $padron = Padron::paginate(10);
+        //devolver padron paginado con sus distrito y municipio
+        $padron = Padron::with('distrito', 'municipio')->paginate(20);
         return response()->json($padron);
+        // $padron = Padron::paginate(10);
+        // return response()->json($padron);
     }
 
     /**
@@ -37,7 +40,7 @@ class PadronController extends Controller
     public function show(string $id)
     {
         // mostrar un solo registro por card_id
-        $padron = Padron::where('card_id', $id)->first();
+        $padron = Padron::where('card_id', $id)->with('distrito', 'municipio')->first();
         //validar que exista el registro
         if (!$padron) {
             return response()->json(['message' => 'Registro no encontrado'], 404);
@@ -61,9 +64,25 @@ class PadronController extends Controller
      */
     public function destroy(string $id)
     {
+        //borrar el registro en votantes
+        $votantesId = Votante::where('padron_id', $id)->pluck('id')->toArray();
+        Votante::destroy($votantesId);
         // borrar un solo registro por id
         $padron = Padron::find($id);
         $padron->delete();
         return response()->json(null, 204);
+    }
+    public function quantityByPadron()
+    {
+        $padron = Padron::count();
+        return response()->json($padron);
+    }
+    public function getPadron($paginate)
+    {
+        //devolver padron paginado con sus distrito y municipio
+        $padron = Padron::with('distrito', 'municipio')->paginate($paginate);
+        return response()->json($padron);
+        // $padron = Padron::paginate(10);
+        // return response()->json($padron);
     }
 }

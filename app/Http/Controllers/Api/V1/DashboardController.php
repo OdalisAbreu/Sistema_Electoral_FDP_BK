@@ -18,7 +18,7 @@ class DashboardController extends Controller
     //Devolver detalle de vontantes API paginados
     public function votantes($qty)
     {
-        $votantes = Votante::paginate($qty);
+        $votantes = Votante::with('user', 'padron', 'padron.municipio', 'padron.distrito')->paginate($qty);
         return response()->json($votantes);
     }
     public function getCoordinadores($qty)
