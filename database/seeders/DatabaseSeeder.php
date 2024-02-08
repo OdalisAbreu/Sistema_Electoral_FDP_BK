@@ -51,7 +51,7 @@ class DatabaseSeeder extends Seeder
 
         $municipios->run();
         $distritos->run();
-        //$padron->run();
-        //$votantes->run();
+        $padron->run();
+        $votantes->run();
     }
 }
