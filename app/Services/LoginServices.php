@@ -64,7 +64,6 @@ class LoginServices
     public function updateUser(array $data)
     {
         $user = User::find($data['id']);
-        $user->username = $data['username'];
         $user->role_id = $data['role_id'];
         $user->name = $data['name'] ?? '';
         $user->last_name = $data['last_name'] ?? '';
