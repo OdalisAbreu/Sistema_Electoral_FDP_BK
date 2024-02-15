@@ -19,6 +19,7 @@ class Padron extends Model
         'phone',
         'municipio_id',
         'distrito_id',
+        'image',
     ];
     //crear relacion de uno a muchos con distritos
     public function distrito()
