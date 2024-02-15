@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('distrito_id');
             $table->string('mesa');
             $table->string('indice')->nullable();
-            $table->string('image')->nullable();
+            $table->text('image')->nullable();
             $table->timestamps();
 
             $table->foreign('municipio_id')->references('id')->on('municipios');

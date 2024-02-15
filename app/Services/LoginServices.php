@@ -27,6 +27,7 @@ class LoginServices
                 'municipio_id' => $request->user()->municipio,
                 'municipio' => $municipio ? $municipio->name : '',
                 'distrito_id' => $request->user()->distrito,
+                'iamge' => $request->user()->image ?? '',
                 'distrito' => $distrito ? $distrito->name : '',
                 'message' => 'Sucess',
             ]);
@@ -55,6 +56,28 @@ class LoginServices
         $user->last_name = $data['last_name'] ?? '';
         $user->municipio = $data['municipio'] ?? '';
         $user->distrito = $data['distrito'] ?? '';
+        $user->password = bcrypt($data['password']);
+        $user->image = $data['image'] ?? '';
+        $user->save();
+        return $user;
+    }
+    public function updateUser(array $data)
+    {
+        $user = User::find($data['id']);
+        $user->username = $data['username'];
+        $user->role_id = $data['role_id'];
+        $user->name = $data['name'] ?? '';
+        $user->last_name = $data['last_name'] ?? '';
+        $user->municipio = $data['municipio'] ?? '';
+        $user->distrito = $data['distrito'] ?? '';
+        $user->image = $data['image'] ?? '';
+        $user->save();
+        return $user;
+    }
+
+    public function updatePassword(array $data)
+    {
+        $user = User::find($data['id']);
         $user->password = bcrypt($data['password']);
         $user->save();
         return $user;

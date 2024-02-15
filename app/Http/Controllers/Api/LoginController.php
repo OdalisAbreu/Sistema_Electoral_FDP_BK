@@ -23,4 +23,12 @@ class LoginController extends Controller
     {
         return $this->loginService->createUser($request->all());
     }
+    public function updateUser(Request $request)
+    {
+        return $this->loginService->updateUser($request->all());
+    }
+    public function updatePassword(Request $request)
+    {
+        return $this->loginService->updatePassword($request->all());
+    }
 }
