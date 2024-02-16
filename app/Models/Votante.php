@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Votante extends Model
 {
     //realcion uno a muchos con la tabla Padron
-    protected $fillable = ['padron_id', 'user_id'];
+    protected $fillable = ['padron_id', 'user_id', 'voto'];
     public function padron()
     {
         return $this->belongsTo(Padron::class);
