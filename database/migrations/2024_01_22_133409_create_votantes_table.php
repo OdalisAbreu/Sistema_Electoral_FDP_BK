@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('padron_id')->uniqid();
             $table->unsignedBigInteger('user_id')->default(1);
+            $table->integer('voto')->default(0);
             $table->timestamps();
 
 
