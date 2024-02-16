@@ -23,6 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('distrito_id');
             $table->string('mesa');
             $table->string('indice')->nullable();
+            $table->integer('voto')->default(0);
             $table->text('image')->nullable();
             $table->timestamps();
 

@@ -86,4 +86,11 @@ class PadronController extends Controller
         // $padron = Padron::paginate(10);
         // return response()->json($padron);
     }
+    public function updateVoto(Request $request)
+    {
+        $votante = Padron::find($request->id);
+        $votante->voto  = $request->voto;
+        $votante->save();
+        return response()->json($votante);
+    }
 }

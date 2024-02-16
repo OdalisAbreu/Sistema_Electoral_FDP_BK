@@ -65,11 +65,4 @@ class VotantesController extends Controller
         $votantes = Votante::whereBetween('created_at', [$request->fechaDesde, $request->fechaHasta])->count();
         return response()->json($votantes);
     }
-    public function updateVoto(Request $request)
-    {
-        $votante = Votante::find($request->id);
-        $votante->voto  = $request->voto;
-        $votante->save();
-        return response()->json($votante);
-    }
 }

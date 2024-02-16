@@ -21,4 +21,4 @@ Route::get('getVotantesPorUser/{id}', 'App\Http\Controllers\Api\V1\VotantesContr
 Route::resource('municipios', 'App\Http\Controllers\Api\V1\MunicipiosController')->only(['index'])->middleware('auth:sanctum');
 Route::resource('distritos', 'App\Http\Controllers\Api\V1\DistritosController')->only(['index'])->middleware('auth:sanctum');
 Route::post('getQtyVotantesByDate', 'App\Http\Controllers\Api\V1\VotantesController@getQtyVotantesByDate')->middleware('auth:sanctum');
-Route::post('updateVoto', 'App\Http\Controllers\Api\V1\VotantesController@updateVoto')->middleware('auth:sanctum');
+Route::post('updateVoto', 'App\Http\Controllers\Api\V1\PadronController@updateVoto')->middleware('auth:sanctum');
