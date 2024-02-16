@@ -79,6 +79,7 @@ class PadronController extends Controller
     }
     public function getPadron($paginate)
     {
+        $paginate = $paginate + 1;
         //devolver padron paginado con sus distrito y municipio
         $padron = Padron::with('distrito', 'municipio')->paginate($paginate);
         return response()->json($padron);

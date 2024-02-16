@@ -18,11 +18,13 @@ class DashboardController extends Controller
     //Devolver detalle de vontantes API paginados
     public function votantes($qty)
     {
+        $qty = $qty + 1;
         $votantes = Votante::with('user', 'padron', 'padron.municipio', 'padron.distrito')->paginate($qty);
         return response()->json($votantes);
     }
     public function getCoordinadores($qty)
     {
+        $qty = $qty + 1;
         $coordinadores = User::where('role_id', 2)->paginate($qty);
         //agregar cantidad de votantes por coordinador
         foreach ($coordinadores as $coordinador) {
