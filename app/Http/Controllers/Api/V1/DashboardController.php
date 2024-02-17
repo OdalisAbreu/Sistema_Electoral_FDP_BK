@@ -18,13 +18,40 @@ class DashboardController extends Controller
     //Devolver detalle de vontantes API paginados
     public function votantes($qty)
     {
-        $qty = $qty + 1;
+        //si viene distrito en la url filtrar por id de distrito que viene en la url del padron
+        if (request()->has('distrito')) {
+            $votantes = Votante::with('user', 'padron', 'padron.municipio', 'padron.distrito')->whereHas('padron', function ($query) {
+                $query->where('distrito_id', request('distrito'));
+            })->paginate($qty);
+            return response()->json($votantes);
+        }
+        //si viene municipio en la url filtrar por id de munucipio que viene en la url del padron
+        if (request()->has('municipio')) {
+            $votantes = Votante::with('user', 'padron', 'padron.municipio', 'padron.distrito')->whereHas('padron', function ($query) {
+                $query->where('municipio_id', request('municipio'));
+            })->paginate($qty);
+            return response()->json($votantes);
+        }
+        //devolver votantes paginados
         $votantes = Votante::with('user', 'padron', 'padron.municipio', 'padron.distrito')->paginate($qty);
+        //filtrar votantes por distrito
+
+
         return response()->json($votantes);
     }
     public function getCoordinadores($qty)
     {
-        $qty = $qty + 1;
+        //si viene distrito en la url filtrar por id de distrito que viene en la url
+        if (request()->has('distrito')) {
+            $coordinadores = User::where('role_id', 2)->where('distrito_id', request('distrito'))->paginate($qty);
+            return response()->json($coordinadores);
+        }
+        //si viene municipio en la url filtrar por id de munucipio que viene en la url
+        if (request()->has('municipio')) {
+            $coordinadores = User::where('role_id', 2)->where('municipio_id', request('municipio'))->paginate($qty);
+            return response()->json($coordinadores);
+        }
+        //devolver votantes paginados
         $coordinadores = User::where('role_id', 2)->paginate($qty);
         //agregar cantidad de votantes por coordinador
         foreach ($coordinadores as $coordinador) {

@@ -79,9 +79,20 @@ class PadronController extends Controller
     }
     public function getPadron($paginate)
     {
-        $paginate = $paginate + 1;
+        //valida si viene distrito en la url y filtra por id de distrito que viene en la url
+        if (request()->has('distrito')) {
+            $padron = Padron::where('distrito_id', request('distrito'))->with('distrito', 'municipio')->paginate($paginate);
+            return response()->json($padron);
+        }
+        //valida si ciene municipio en la url y filtra por id de munucipio que viene en la url
+        if (request()->has('municipio')) {
+            $padron = Padron::where('municipio_id', request('municipio'))->with('distrito', 'municipio')->paginate($paginate);
+            return response()->json($padron);
+        }
+
         //devolver padron paginado con sus distrito y municipio
         $padron = Padron::with('distrito', 'municipio')->paginate($paginate);
+
         return response()->json($padron);
         // $padron = Padron::paginate(10);
         // return response()->json($padron);
