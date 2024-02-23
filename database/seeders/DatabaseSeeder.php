@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
         $rol = new RolesSeeder();
         $distritos = new DistritosSeeder();
         $municipios = new MunicipiosSeeder();
-        $votantes = new VotantesSeeder();
-        $padron = new PadronSeeder();
+        // $votantes = new VotantesSeeder();
+        // $padron = new PadronSeeder();
 
 
         $rol->run();
@@ -28,30 +28,30 @@ class DatabaseSeeder extends Seeder
             'role_id' => 1,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
-        \App\Models\User::factory()->create([
-            'username' => 'Coordinador',
-            'email' => 'coordinador@localhost',
-            'name' => 'Juan',
-            'last_name' => 'Perez',
-            'municipio' => '1',
-            'distrito' => '1',
-            'role_id' => 2,
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        ]);
-        \App\Models\User::factory()->create([
-            'username' => 'Coordinador2',
-            'email' => 'coordinador@localhost',
-            'name' => 'Pedro',
-            'last_name' => 'Abreu',
-            'municipio' => '1',
-            'distrito' => '2',
-            'role_id' => 2,
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        ]);
+        // \App\Models\User::factory()->create([
+        //     'username' => 'Coordinador',
+        //     'email' => 'coordinador@localhost',
+        //     'name' => 'Juan',
+        //     'last_name' => 'Perez',
+        //     'municipio' => '1',
+        //     'distrito' => '1',
+        //     'role_id' => 2,
+        //     'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        // ]);
+        // \App\Models\User::factory()->create([
+        //     'username' => 'Coordinador2',
+        //     'email' => 'coordinador@localhost',
+        //     'name' => 'Pedro',
+        //     'last_name' => 'Abreu',
+        //     'municipio' => '1',
+        //     'distrito' => '2',
+        //     'role_id' => 2,
+        //     'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        // ]);
 
         $municipios->run();
         $distritos->run();
-        $padron->run();
-        $votantes->run();
+        // $padron->run();
+        // $votantes->run();
     }
 }

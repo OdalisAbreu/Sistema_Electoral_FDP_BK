@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('mesa');
             $table->string('indice')->nullable();
             $table->integer('voto')->default(0);
+            $table->text('apodo')->nullable();
             $table->text('image')->nullable();
             $table->timestamps();
 
