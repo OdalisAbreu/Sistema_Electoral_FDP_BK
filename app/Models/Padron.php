@@ -21,6 +21,7 @@ class Padron extends Model
         'distrito_id',
         'voto',
         'image',
+        'apodo',
     ];
     //crear relacion de uno a muchos con distritos
     public function distrito()
