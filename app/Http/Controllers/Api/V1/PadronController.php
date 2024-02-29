@@ -79,23 +79,61 @@ class PadronController extends Controller
     }
     public function getPadron($paginate)
     {
+        //valida si viene mesa en la url y filtra por id de mesa y distrito que viene en la url
+        if (request()->has('mesa') && request()->has('distrito')) {
+            $padron = Padron::where('mesa', request('mesa'))->where('distrito_id', request('distrito'))->with('distrito', 'municipio')->paginate($paginate);
+            //contar cuentos registros tienen el campo $padron-voto = 1
+            $padron['votos'] = Padron::where('mesa', request('mesa'))->where('distrito_id', request('distrito'))->where('voto', 1)->with('distrito', 'municipio')->count();
+            //Cantidad de Votantes inscritos
+            $padron['votantes_inscritos'] = Votante::join('padron', 'padron.id', '=', 'votantes.padron_id')->where('mesa', request('mesa'))->where('distrito_id', request('distrito'))->count();
+            return response()->json($padron);
+        }
+        //valida si viene mesa en la url y filtra por id de mesa y municipio que viene en la url
+        if (request()->has('mesa') && request()->has('municipio')) {
+            $padron = Padron::where('mesa', request('mesa'))->where('municipio_id', request('municipio'))->with('distrito', 'municipio')->paginate($paginate);
+            //contar cuentos registros tienen el campo $padron-voto = 1
+            $padron['votos'] = Padron::where('mesa', request('mesa'))->where('municipio_id', request('municipio'))->where('voto', 1)->with('distrito', 'municipio')->count();
+            //Cantidad de Votantes inscritos
+            $padron['votantes_inscritos'] = Votante::join('padron', 'padron.id', '=', 'votantes.padron_id')->where('mesa', request('mesa'))->where('municipio_id', request('municipio'))->count();
+            return response()->json($padron);
+        }
+        //valida si viene mesa en la url y filtra por id de mesa que viene en la url
+        if (request()->has('mesa')) {
+            $padron = Padron::where('mesa', request('mesa'))->with('distrito', 'municipio')->paginate($paginate);
+            //contar cuentos registros tienen el campo $padron-voto = 1
+            $padron['votos']  = Padron::where('mesa', request('mesa'))->where('voto', 1)->with('distrito', 'municipio')->count();
+            //Cantidad de Votantes inscritos
+            $padron['votantes_inscritos'] = Votante::join('padron', 'padron.id', '=', 'votantes.padron_id')->where('mesa', request('mesa'))->count();
+            return response()->json($padron);
+        }
         //valida si viene distrito en la url y filtra por id de distrito que viene en la url
         if (request()->has('distrito')) {
             $padron = Padron::where('distrito_id', request('distrito'))->with('distrito', 'municipio')->paginate($paginate);
+            //contar cuentos registros tienen el campo $padron-voto = 1
+            $padron['votos'] = Padron::where('distrito_id', request('distrito'))->where('voto', 1)->with('distrito', 'municipio')->count();
+            //Cantidad de Votantes inscritos
+            $padron['votantes_inscritos'] = Votante::join('padron', 'padron.id', '=', 'votantes.padron_id')->where('distrito_id', request('distrito'))->count();
             return response()->json($padron);
         }
         //valida si ciene municipio en la url y filtra por id de munucipio que viene en la url
         if (request()->has('municipio')) {
             $padron = Padron::where('municipio_id', request('municipio'))->with('distrito', 'municipio')->paginate($paginate);
+            //contar cuentos registros tienen el campo $padron-voto = 1
+            $padron['votos'] = Padron::where('municipio_id', request('municipio'))->where('voto', 1)->with('distrito', 'municipio')->count();
+            //Cantidad de Votantes inscritos
+            $padron['votantes_inscritos'] = Votante::join('padron', 'padron.id', '=', 'votantes.padron_id')->where('municipio_id', request('municipio'))->count();
+
             return response()->json($padron);
         }
 
         //devolver padron paginado con sus distrito y municipio
         $padron = Padron::with('distrito', 'municipio')->paginate($paginate);
+        //contar cuentos registros tienen el campo $padron-voto = 1
+        $padron['votos'] = Padron::where('voto', 1)->with('distrito', 'municipio')->count();
+        //Contar Votantes inscritos
+        $padron['votantes_inscritos'] = Votante::join('padron', 'padron.id', '=', 'votantes.padron_id')->count();
 
         return response()->json($padron);
-        // $padron = Padron::paginate(10);
-        // return response()->json($padron);
     }
     public function updateVoto(Request $request)
     {
