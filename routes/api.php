@@ -16,6 +16,7 @@ Route::get('getTotalCoordinadores', 'App\Http\Controllers\Api\V1\DashboardContro
 Route::resource('padron', 'App\Http\Controllers\Api\V1\PadronController')->middleware('auth:sanctum');
 Route::get('getQuantityByPadron', 'App\Http\Controllers\Api\V1\PadronController@quantityByPadron')->middleware('auth:sanctum');
 Route::get('getPadron/{qty}', 'App\Http\Controllers\Api\V1\PadronController@getPadron')->middleware('auth:sanctum');
+Route::get('getDetailPadron', 'App\Http\Controllers\Api\V1\PadronController@getQtyPadron')->middleware('auth:sanctum');
 Route::resource('votantes', 'App\Http\Controllers\Api\V1\VotantesController')->only(['store', 'destroy'])->middleware('auth:sanctum');
 Route::get('getVotantesPorUser/{id}', 'App\Http\Controllers\Api\V1\VotantesController@getVotantesPorUser')->middleware('auth:sanctum');
 Route::resource('municipios', 'App\Http\Controllers\Api\V1\MunicipiosController')->only(['index'])->middleware('auth:sanctum');
