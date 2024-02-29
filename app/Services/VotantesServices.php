@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\Models\Votante;
 
 class VotantesServices
@@ -29,8 +30,9 @@ class VotantesServices
     }
     public function valiadaCantidadVotantesPorUsuario($user_id)
     {
+        $qty_votantes = User::find($user_id)->qty_votantes;
         $quantity = Votante::where('user_id', $user_id)->count();
-        if ($quantity > 15) {
+        if ($quantity > $qty_votantes) {
             return false;
         }
         return true;

@@ -29,6 +29,7 @@ class LoginServices
                 'distrito_id' => $request->user()->distrito,
                 'iamge' => $request->user()->image ?? '',
                 'distrito' => $distrito ? $distrito->name : '',
+                'qty_votantes' => $request->user()->qty_votantes,
                 'message' => 'Sucess',
             ]);
         }
@@ -70,6 +71,7 @@ class LoginServices
         $user->municipio = $data['municipio'] ?? '';
         $user->distrito = $data['distrito'] ?? '';
         $user->image = $data['image'] ?? '';
+        $user->qty_votantes = $data['qty_votantes'] ?? '';
         $user->save();
         return $user;
     }
