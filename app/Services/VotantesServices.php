@@ -32,7 +32,7 @@ class VotantesServices
     {
         $qty_votantes = User::find($user_id)->qty_votantes;
         $quantity = Votante::where('user_id', $user_id)->count();
-        if ($quantity > $qty_votantes) {
+        if ($quantity >= $qty_votantes) {
             return false;
         }
         return true;
