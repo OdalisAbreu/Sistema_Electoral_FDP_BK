@@ -33,7 +33,7 @@ class DashboardController extends Controller
             return response()->json($votantes);
         }
         //devolver votantes paginados
-        $votantes = Votante::with('user', 'padron', 'padron.municipio', 'padron.distrito')->paginate($qty);
+        $votantes = Votante::with('padron', 'padron.municipio', 'padron.distrito')->paginate($qty);
         //filtrar votantes por distrito
 
 
