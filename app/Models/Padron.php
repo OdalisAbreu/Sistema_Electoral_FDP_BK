@@ -20,7 +20,6 @@ class Padron extends Model
         'municipio_id',
         'distrito_id',
         'voto',
-        'image',
         'apodo',
     ];
     //crear relacion de uno a muchos con distritos

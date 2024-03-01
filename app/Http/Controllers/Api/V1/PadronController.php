@@ -7,6 +7,7 @@ use App\Models\Padron;
 use App\Models\Votante;
 use Illuminate\Http\Request;
 
+
 class PadronController extends Controller
 {
     /**
@@ -28,10 +29,33 @@ class PadronController extends Controller
     {
         // guardar en la base de datos
         $data = $request->all();
-
+        //el campo $data['image'] es una imagen en base64 toma la imagen y llevala a 200x200 y almacena en base64
+        if (isset($data['image'])) {
+            $data['image'] = $this->base64ToImage($data['image'], 200, 200, 'padron');
+        }
         // Save the data to the database
         $padron = Padron::create($data);
         return response()->json($padron, 201);
+    }
+
+    /**
+     * Convert base64 image to image
+     */
+    public function base64ToImage($base64, $width, $height, $folder)
+    {
+        //optener la url del servidor
+        $image_parts = explode(";base64,", $base64);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        $image_base64 = base64_decode($image_parts[1]);
+        $file = $folder . uniqid() . '.' . $image_type;
+        file_put_contents(public_path() . '/' . $file, $image_base64);
+        //cambiar el tamaño de la imagen
+        $image = imagecreatefromstring(file_get_contents(public_path() . '/' . $file));
+        $new_image = imagecreatetruecolor($width, $height);
+        imagecopyresampled($new_image, $image, 0, 0, 0, 0, $width, $height, imagesx($image), imagesy($image));
+        imagejpeg($new_image, public_path() . '/' . $file, 100);
+        return 'https://fdp.darielabreu.com/' . $file;
     }
 
     /**
@@ -56,6 +80,10 @@ class PadronController extends Controller
         // actualizar un solo registro por id
         $padron = Padron::find($id);
         $padron->update($request->all());
+        if (isset($request->image)) {
+            $padron->image = $this->base64ToImage($request->image, 200, 200, 'padron');
+        }
+        $padron->save();
         return response()->json($padron);
     }
 
