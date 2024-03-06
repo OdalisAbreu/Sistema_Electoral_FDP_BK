@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExcelController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/subir-archivo', [ExcelController::class, 'formulario'])->name('formulario.subir');
+Route::post('/subir-archivo', [ExcelController::class, 'subir'])->name('subir.archivo');
