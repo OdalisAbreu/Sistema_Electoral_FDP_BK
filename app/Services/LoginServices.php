@@ -31,6 +31,7 @@ class LoginServices
                 'iamge' => $request->user()->image ?? '',
                 'distrito' => $distrito ? $distrito->name : '',
                 'qty_votantes' => $request->user()->qty_votantes,
+                'phone' => $request->user()->phone,
                 'message' => 'Sucess',
             ]);
         }
@@ -61,6 +62,7 @@ class LoginServices
         $user->password = bcrypt($data['password']);
         $user->image = $data['image'] ?? '';
         $user->qty_votantes = $data['qty_votantes'];
+        $user->phone = $data['phone'] ?? '';
         $user->save();
         return $user;
     }
@@ -74,6 +76,7 @@ class LoginServices
         $user->distrito = $data['distrito'] ?? '';
         $user->image = $data['image'] ?? '';
         $user->qty_votantes = $data['qty_votantes'] ?? '';
+        $user->phone = $data['phone'] ?? '';
         $user->save();
         return $user;
     }
