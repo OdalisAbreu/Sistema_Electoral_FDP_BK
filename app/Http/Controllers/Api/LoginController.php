@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Votante;
 use App\Services\LoginServices;
 use Illuminate\Http\Request;
 
@@ -30,5 +31,9 @@ class LoginController extends Controller
     public function updatePassword(Request $request)
     {
         return $this->loginService->updatePassword($request->all());
+    }
+    public function deleteUser($id)
+    {
+        return $this->loginService->deleteUser($id);
     }
 }

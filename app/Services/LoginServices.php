@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Distrito;
 use App\Models\Municipio;
 use App\Models\User;
+use App\Models\Votante;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -82,6 +83,18 @@ class LoginServices
         $user = User::find($data['id']);
         $user->password = bcrypt($data['password']);
         $user->save();
+        return $user;
+    }
+    public function deleteUser($id)
+    {
+        //eliminar los votantes del usuario
+        $votantes = Votante::where('user_id', $id)->get();
+        foreach ($votantes as $votante) {
+            $votante->delete();
+        }
+
+        $user = User::find($id);
+        $user->delete();
         return $user;
     }
 }
