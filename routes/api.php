@@ -8,7 +8,7 @@ Route::post('login', 'App\Http\Controllers\Api\LoginController@login');
 Route::post('createUser', 'App\Http\Controllers\Api\LoginController@createUser')->middleware('auth:sanctum');
 Route::post('updateUser', 'App\Http\Controllers\Api\LoginController@updateUser')->middleware('auth:sanctum');
 Route::post('updatePassword', 'App\Http\Controllers\Api\LoginController@updatePassword')->middleware('auth:sanctum');
-Route::get('deleteUser/{id}', 'App\Http\Controllers\Api\LoginController@deleteUser')->middleware('auth:sanctum');
+Route::delete('deleteUser/{id}', 'App\Http\Controllers\Api\LoginController@deleteUser')->middleware('auth:sanctum');
 
 Route::get('getTotalVotantes', 'App\Http\Controllers\Api\V1\DashboardController@totalVotantes')->middleware('auth:sanctum');
 Route::get('getVotantes/{qty}', 'App\Http\Controllers\Api\V1\DashboardController@votantes')->middleware('auth:sanctum');

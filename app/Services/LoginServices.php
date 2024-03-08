@@ -98,6 +98,9 @@ class LoginServices
 
         $user = User::find($id);
         $user->delete();
-        return $user;
+        //Retornar un 204 cuando se elimina
+        return response()->json([
+            'message' => 'Eliminado'
+        ], 204);
     }
 }
