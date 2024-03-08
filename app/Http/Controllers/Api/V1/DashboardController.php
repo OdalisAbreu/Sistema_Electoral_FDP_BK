@@ -43,16 +43,16 @@ class DashboardController extends Controller
     {
         //si viene distrito en la url filtrar por id de distrito que viene en la url
         if (request()->has('distrito')) {
-            $coordinadores = User::where('role_id', 2)->where('distrito_id', request('distrito'))->paginate($qty);
+            $coordinadores = User::where('role_id', '!=', 1)->where('distrito_id', request('distrito'))->paginate($qty);
             return response()->json($coordinadores);
         }
         //si viene municipio en la url filtrar por id de munucipio que viene en la url
         if (request()->has('municipio')) {
-            $coordinadores = User::where('role_id', 2)->where('municipio_id', request('municipio'))->paginate($qty);
+            $coordinadores = User::where('role_id', '!=', 1)->where('municipio_id', request('municipio'))->paginate($qty);
             return response()->json($coordinadores);
         }
         //devolver votantes paginados
-        $coordinadores = User::where('role_id', 2)->paginate($qty);
+        $coordinadores = User::where('role_id', '!=', 1)->paginate($qty);
         //agregar cantidad de votantes por coordinador
         foreach ($coordinadores as $coordinador) {
             $coordinador->votantes = Votante::where('user_id', $coordinador->id)->count();
@@ -61,7 +61,7 @@ class DashboardController extends Controller
     }
     public function getTotalCoordinadores()
     {
-        $totalCoordinadores = User::where('role_id', 2)->count();
+        $totalCoordinadores = User::where('role_id', '!=', 1)->count();
         return response()->json(['totalCoordinadores' => $totalCoordinadores]);
     }
 }
