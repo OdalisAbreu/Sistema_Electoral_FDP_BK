@@ -61,8 +61,9 @@ class LoginServices
         $user->distrito = $data['distrito'] ?? '';
         $user->password = bcrypt($data['password']);
         $user->image = $data['image'] ?? '';
-        $user->qty_votantes = $data['qty_votantes'];
+        $user->qty_votantes = $data['qty_votantes'] ?? '';
         $user->phone = $data['phone'] ?? '';
+        $user->coordinador_base = $data['coordinador_base'] ?? '';
         $user->save();
         return $user;
     }
