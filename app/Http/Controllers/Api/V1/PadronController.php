@@ -80,10 +80,13 @@ class PadronController extends Controller
         // actualizar un solo registro por id
         $padron = Padron::find($id);
         $padron->update($request->all());
+        //valida si el string de la imagen tienen mas de 250 caracteres y si es distinto de vacio
+        if (strlen($request->image) > 250 && $request->image !== '') {
+            $padron->image = $this->base64ToImage($request->image, 200, 200, 'padron');
+        }
         // if (isset($request->image)) {
-        //     $padron->image = $this->base64ToImage($request->image, 200, 200, 'padron');
         // }
-        // $padron->save();
+        $padron->save();
         return response()->json($padron);
     }
 
