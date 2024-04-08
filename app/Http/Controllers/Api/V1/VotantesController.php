@@ -50,7 +50,7 @@ class VotantesController extends Controller
     public function destroy(string $id)
     {
         // borrar un solo registro por id
-        $votante = Votante::find($id);
+        $votante = Votante::where('padron_id', $id)->first();
         $votante->delete();
         return response()->json(null, 204);
     }
