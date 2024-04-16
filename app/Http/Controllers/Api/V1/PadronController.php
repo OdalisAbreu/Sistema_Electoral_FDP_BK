@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Padron;
+use App\Models\User;
 use App\Models\Votante;
 use Illuminate\Http\Request;
 
@@ -68,6 +69,15 @@ class PadronController extends Controller
         //validar que exista el registro
         if (!$padron) {
             return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
+        //Validar si esta registrado en votantes
+        $votante = Votante::where('padron_id', $padron->id)->first();
+        if ($votante) {
+            //Buscar el usuario que corresponde al votante
+            $user = User::find($votante->user_id);
+            $padron->username = $user->name . ' ' . $user->last_name;
+        } else {
+            $padron->username = '';
         }
         return response()->json($padron);
     }
